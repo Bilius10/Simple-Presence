@@ -37,13 +37,12 @@ public class UserService {
         return new LoginOutput(user, generatedToken);
     }
 
-    public RegisterOutput register(String name, String email, String password, Integer cohortID) {
+    public RegisterOutput register(String name, String email, String password) {
         existsByEmail(email);
-        Cohort cohort = cohortService.findById(cohortID);
 
         String encodedPassword = encoder.encode(password);
 
-        User user = new User(name, email, encodedPassword, cohort);
+        User user = new User(name, email, encodedPassword);
 
         user = userRepository.save(user);
 

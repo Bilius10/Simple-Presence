@@ -19,9 +19,6 @@ public record RegisterInput(
         @NotNull(message = "{password.not.null}")
         @NotBlank(message = "{password.not.blank}")
         @Size(max = 255, message = "{password.size.max}")
-        String password,
-
-        @NotNull(message = "{cohortId.not.null}")
-        Integer cohortID
+        String password
 ) {
 }

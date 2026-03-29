@@ -20,4 +20,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Override
     @Query("SELECT c FROM Course c WHERE c.id = :id AND c.createdBy = ?#{principal.username}")
     Optional<Course> findById(Integer id);
+
+    @Override
+    @Query("DELETE FROM Course c WHERE c.id = :id AND c.createdBy = ?#{principal.username}")
+    void deleteById(Integer id);
 }

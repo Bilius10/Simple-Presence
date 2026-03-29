@@ -35,7 +35,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<RegisterOutput> register(@Valid @RequestBody RegisterInput registerInput) {
         RegisterOutput register = userService.register(registerInput.name(), registerInput.email(),
-                registerInput.password(), registerInput.cohortID());
+                registerInput.password());
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

@@ -44,7 +44,12 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("STUDENT")
                         .requestMatchers(HttpMethod.PATCH, "/api/users/patch").hasRole("STUDENT")
                         .requestMatchers("/api/users/**").denyAll()
-                        .requestMatchers("/api/courses/**").hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.POST, "/api/courses").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/courses").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/courses/{id}}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/courses/{id}}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/courses/patch").hasRole("ADMIN")
+                        .requestMatchers("/api/courses/**").denyAll()
                         .requestMatchers("/api/cohorts/**").hasRole("TEACHER")
                         .requestMatchers(
                                 "/api/v3/api-docs/**",

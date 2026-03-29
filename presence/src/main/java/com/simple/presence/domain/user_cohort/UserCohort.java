@@ -1,8 +1,9 @@
-package com.simple.presence.domain.course;
+package com.simple.presence.domain.user_cohort;
 
 import com.simple.presence.domain.cohort.Cohort;
+import com.simple.presence.domain.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,31 +12,29 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "cursos")
+@Table(name = "usuarios_turmas")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Builder
-public class Course {
+@EntityListeners(AuditingEntityListener.class)
+public class UserCohort {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_curso")
+    @Column(name = "id_usuario_turma")
     private Integer id;
 
-    @NotBlank
-    @Size(max = 100)
-    @Column(name = "nome_curso", nullable = false, length = 100)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private User user;
 
-    @Column(name = "descricao", columnDefinition = "TEXT")
-    private String description;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_turma", nullable = false)
+    private Cohort cohort;
 
     @Size(max = 100)
     @CreatedBy
@@ -55,12 +54,12 @@ public class Course {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cohort> cohorts = new ArrayList<>();
+    @Column(name = "deleted")
+    private Boolean deleted = Boolean.FALSE;
 
-    public Course update(String name, String description) {
-        this.name = name;
-        this.description = description;
-        return this;
+    @PrePersist
+    protected void onCreate() {
+        this.deleted = Boolean.FALSE;
     }
 }
+

@@ -54,10 +54,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_turma")
-    private Cohort cohort;
-
     @Size(max = 100)
     @CreatedBy
     @Column(name = "created_by", length = 100)
@@ -76,12 +72,12 @@ public class User implements UserDetails {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public User(String name, String email, String password, Cohort cohort) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.userType = UserType.STUDENT;
-        this.cohort = cohort;
+        this.createdBy = email;
     }
 
     public User update(String name, String email) {
