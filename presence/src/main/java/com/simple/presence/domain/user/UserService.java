@@ -1,11 +1,11 @@
-package com.simple.presence.user;
+package com.simple.presence.domain.user;
 
-import com.simple.presence.cohort.Cohort;
-import com.simple.presence.cohort.CohortService;
+import com.simple.presence.domain.cohort.Cohort;
+import com.simple.presence.domain.cohort.CohortService;
 import com.simple.presence.infrastrcuture.exception.ServiceException;
 import com.simple.presence.infrastrcuture.security.TokenService;
-import com.simple.presence.user.dto.LoginOutput;
-import com.simple.presence.user.dto.RegisterOutput;
+import com.simple.presence.domain.user.dto.LoginOutput;
+import com.simple.presence.domain.user.dto.RegisterOutput;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public LoginOutput login(String email, String password) {
-        UserEntity user = findUserByEmail(email);
+        User user = findUserByEmail(email);
 
         validatePassword(password, user.getPassword());
 
@@ -43,11 +43,17 @@ public class UserService {
 
         String encodedPassword = encoder.encode(password);
 
-        UserEntity userEntity = new UserEntity(name, email, encodedPassword, cohort);
+        User user = new User(name, email, encodedPassword, cohort);
 
-        userEntity = userRepository.save(userEntity);
+        user = userRepository.save(user);
 
-        return  new RegisterOutput(userEntity);
+        return  new RegisterOutput(user);
+    }
+
+    public void patch(Integer id, String name, String email) {
+        User user = findUserById(id);
+        user = user.update(name, email);
+        userRepository.save(user);
     }
 
     private void validatePassword(String rawPassword, String encodedPassword) {
@@ -56,7 +62,7 @@ public class UserService {
         }
     }
 
-    private UserEntity findUserByEmail(String email) {
+    private User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ServiceException(INVALID_CREDENTIALS.getMessage(), HttpStatus.UNAUTHORIZED));
     }
@@ -65,5 +71,10 @@ public class UserService {
         if (userRepository.existsByEmail(email)) {
             throw new ServiceException(EMAIL_ALREADY_EXISTS.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    private User findUserById(Integer id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ServiceException(ENTITY_NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND));
     }
 }

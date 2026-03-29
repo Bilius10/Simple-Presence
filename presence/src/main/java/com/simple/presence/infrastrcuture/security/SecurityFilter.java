@@ -1,7 +1,7 @@
 package com.simple.presence.infrastrcuture.security;
 
 import com.simple.presence.infrastrcuture.exception.ServiceException;
-import com.simple.presence.user.UserRepository;
+import com.simple.presence.domain.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

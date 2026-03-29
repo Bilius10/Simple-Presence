@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.simple.presence.infrastrcuture.exception.ServiceException;
-import com.simple.presence.user.UserEntity;
+import com.simple.presence.domain.user.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class TokenService {
     @Value("${security.jwt.expiration-hours}")
     private long expiration;
 
-    public String generateToken(UserEntity user) {
+    public String generateToken(User user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 

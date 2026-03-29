@@ -1,10 +1,10 @@
-package com.simple.presence.course;
+package com.simple.presence.domain.attendance;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@RepositoryRestResource(path = "courses")
-public interface CourseRepository extends JpaRepository<Course, Integer> {
+@RepositoryRestResource(path = "attendance")
+public interface AttendanceRepository extends JpaRepository<Attendance, Integer> {
 }

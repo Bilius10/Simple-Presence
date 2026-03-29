@@ -1,6 +1,6 @@
-package com.simple.presence.user;
+package com.simple.presence.domain.user;
 
-import com.simple.presence.cohort.Cohort;
+import com.simple.presence.domain.cohort.Cohort;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -25,7 +25,7 @@ import java.util.List;
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Builder
-public class UserEntity implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,12 +76,18 @@ public class UserEntity implements UserDetails {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public UserEntity(String name, String email, String password, Cohort cohort) {
+    public User(String name, String email, String password, Cohort cohort) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.userType = UserType.STUDENT;
         this.cohort = cohort;
+    }
+
+    public User update(String name, String email) {
+        this.name = name;
+        this.email = email;
+        return this;
     }
 
     @Override

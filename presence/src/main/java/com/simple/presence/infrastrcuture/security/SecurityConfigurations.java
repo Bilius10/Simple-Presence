@@ -38,15 +38,19 @@ public class SecurityConfigurations {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/user/**").denyAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users/**").denyAll()
+                        .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/users/{id}").hasRole("STUDENT")
+                        .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("STUDENT")
+                        .requestMatchers(HttpMethod.PATCH, "/api/users/patch").hasRole("STUDENT")
+                        .requestMatchers("/api/users/**").denyAll()
+                        .requestMatchers("/api/courses/**").hasRole("TEACHER")
+                        .requestMatchers("/api/cohorts/**").hasRole("TEACHER")
                         .requestMatchers(
                                 "/api/v3/api-docs/**",
                                 "/api/swagger-ui.html",
                                 "/api/swagger-ui/**",
                                 "/api/docs/**",
-                                "/api/users/**",
-                                "/api/cohorts/**",
-                                "/api/courses/**",
                                 "/api/attendance/**",
                                 "/api/auth/**"
                         ).permitAll()

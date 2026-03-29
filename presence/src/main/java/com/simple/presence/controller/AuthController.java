@@ -1,10 +1,10 @@
 package com.simple.presence.controller;
 
-import com.simple.presence.user.UserService;
-import com.simple.presence.user.dto.LoginInput;
-import com.simple.presence.user.dto.LoginOutput;
-import com.simple.presence.user.dto.RegisterInput;
-import com.simple.presence.user.dto.RegisterOutput;
+import com.simple.presence.domain.user.UserService;
+import com.simple.presence.domain.user.dto.LoginInput;
+import com.simple.presence.domain.user.dto.LoginOutput;
+import com.simple.presence.domain.user.dto.RegisterInput;
+import com.simple.presence.domain.user.dto.RegisterOutput;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

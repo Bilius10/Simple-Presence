@@ -1,0 +1,21 @@
+package com.simple.presence.domain.user.dto;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+public record PatchUserInput(
+
+        @NotBlank(message = "{name.not.blank}")
+        @NotNull(message = "{name.not.null}")
+        @Size(max = 150, message = "{name.size.max}")
+        String name,
+
+        @NotNull(message = "{email.not.null}")
+        @NotBlank(message = "{email.not.blank}")
+        @Email
+        @Size(max = 100, message = "{email.size.max}")
+        String email
+) {
+}

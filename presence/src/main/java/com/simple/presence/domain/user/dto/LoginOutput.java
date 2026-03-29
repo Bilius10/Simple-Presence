@@ -1,6 +1,6 @@
-package com.simple.presence.user.dto;
+package com.simple.presence.domain.user.dto;
 
-import com.simple.presence.user.UserEntity;
+import com.simple.presence.domain.user.User;
 
 public record LoginOutput(
         Integer id,
@@ -8,7 +8,7 @@ public record LoginOutput(
         String token
 ) {
 
-    public LoginOutput(UserEntity user, String token) {
+    public LoginOutput(User user, String token) {
         this(user.getId(), user.getEmail(), token);
     }
 }

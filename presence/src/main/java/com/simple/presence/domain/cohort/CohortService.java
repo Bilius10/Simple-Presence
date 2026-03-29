@@ -1,4 +1,4 @@
-package com.simple.presence.cohort;
+package com.simple.presence.domain.cohort;
 
 import com.simple.presence.infrastrcuture.exception.ServiceException;
 import org.springframework.http.HttpStatus;

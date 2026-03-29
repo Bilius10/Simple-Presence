@@ -1,7 +1,7 @@
-package com.simple.presence.cohort;
+package com.simple.presence.domain.cohort;
 
-import com.simple.presence.course.Course;
-import com.simple.presence.user.UserEntity;
+import com.simple.presence.domain.course.Course;
+import com.simple.presence.domain.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -65,7 +65,7 @@ public class Cohort {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "cohort", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserEntity> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

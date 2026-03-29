@@ -1,4 +1,4 @@
-package com.simple.presence.user;
+package com.simple.presence.domain.user;
 
 public enum UserType {
 

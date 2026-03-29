@@ -1,6 +1,7 @@
-package com.simple.presence.course;
+package com.simple.presence.domain.attendance;
 
-import com.simple.presence.cohort.Cohort;
+import com.simple.presence.domain.cohort.Cohort;
+import com.simple.presence.domain.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -10,32 +11,38 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "cursos")
+@Table(name = "presencas")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Builder
-public class Course {
+@EntityListeners(AuditingEntityListener.class)
+public class Attendance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_curso")
+    @Column(name = "id_presenca")
     private Integer id;
 
-    @NotBlank
-    @Size(max = 100)
-    @Column(name = "nome_curso", nullable = false, length = 100)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
+    private User user;
 
-    @Column(name = "descricao", columnDefinition = "TEXT")
-    private String description;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_turma")
+    private Cohort cohort;
+
+    @Column(name = "data_aula")
+    private LocalDate classDate;
+
+    @NotNull
+    @Column(name = "status", nullable = false)
+    private Boolean status;
 
     @Size(max = 100)
     @CreatedBy
@@ -55,7 +62,6 @@ public class Course {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cohort> cohorts = new ArrayList<>();
-
 }
+
+
