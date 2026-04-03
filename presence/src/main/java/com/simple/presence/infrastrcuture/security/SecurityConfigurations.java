@@ -48,9 +48,14 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/api/courses").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/courses/{id}}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/courses/{id}}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/courses/patch").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/courses/patch/{id}").hasRole("ADMIN")
                         .requestMatchers("/api/courses/**").denyAll()
-                        .requestMatchers("/api/cohorts/**").hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.POST, "/api/cohorts").hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/cohorts").hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/cohorts/{id}}").hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/cohorts/{id}}").hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.PATCH, "/api/cohorts/patch/{id}").hasRole("ADMIN")
+                        .requestMatchers("/api/cohorts/**").denyAll()
                         .requestMatchers(
                                 "/api/v3/api-docs/**",
                                 "/api/swagger-ui.html",

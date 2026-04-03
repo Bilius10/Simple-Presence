@@ -67,16 +67,12 @@ public class Cohort {
     @OneToMany(mappedBy = "cohort", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users = new ArrayList<>();
 
-    @PrePersist
-    protected void onCreate() {
-        if (this.createdAt == null) {
-            this.createdAt = LocalDateTime.now();
-        }
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+    public Cohort update(String name, Course course, String semester, Integer year) {
+        this.name = name;
+        this.course = course;
+        this.semester = semester;
+        this.year = year;
+        return this;
     }
 }
 

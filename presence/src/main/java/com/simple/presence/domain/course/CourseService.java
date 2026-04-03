@@ -22,7 +22,7 @@ public class CourseService {
         courseRepository.save(course);
     }
 
-    private Course findCourseById(Integer id) {
+    public Course findCourseById(Integer id) {
         return courseRepository.findById(id)
                 .orElseThrow(() -> new ServiceException(ENTITY_NOT_FOUND.getMessage(), HttpStatus.BAD_REQUEST));
     }

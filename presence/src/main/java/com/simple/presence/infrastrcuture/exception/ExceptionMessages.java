@@ -10,8 +10,7 @@ public enum ExceptionMessages {
     USER_NOT_FOUND("Usuário não encontrado"),
     INVALID_CREDENTIALS("Credenciais inválidas"),
     ENTITY_NOT_FOUND("Entidade não encontrada"),
-    EMAIL_ALREADY_EXISTS("Email já cadastrado"),
-    COHORT_NOT_FOUND("Turma não encontrada");
+    EMAIL_ALREADY_EXISTS("Email já cadastrado");
 
     private final String message;
 

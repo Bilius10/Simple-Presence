@@ -16,7 +16,7 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @PatchMapping("/patch{id}")
+    @PatchMapping("/patch/{id}")
     public ResponseEntity<Void> patchCourse(@PathVariable Integer id, @Valid @RequestBody PatchCourseInput input) {
          courseService.patchCourse(id, input);
          return ResponseEntity.noContent().build();
